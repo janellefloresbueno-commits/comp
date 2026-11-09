@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computer Quest | Learn ICT</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink:#283451;
+  --blue:#6479d8;
+  --yellow:#fff5d6;
+  --purple:#f0eaff;
+  --green:#e3f7ed;
+  --paper:rgba(247, 248, 255, 0.92);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Nunito',sans-serif;
+  color:var(--ink);
+  line-height:1.6;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  /* Immersive Real Desk Background across all pages */
+  background: linear-gradient(135deg, rgba(20, 28, 50, 0.85), rgba(40, 55, 90, 0.82)), 
+              url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1920&auto=format&fit=crop") no-repeat center center fixed;
+  background-size: cover;
+}
+h1,h2,h3,nav{font-family:'Poppins',sans-serif}
+
+header{background:linear-gradient(115deg,#6479d8,#9386d0);color:white;padding:16px 5%;position:sticky;top:0;z-index:20;box-shadow:0 4px 20px rgba(40,52,81,.2);backdrop-filter: blur(8px);}
+.header-content{max-width:1150px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.logo{font-size:24px;font-weight:900;display:flex;align-items:center;gap:8px}
+nav{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+nav button{border:0;background:transparent;color:white;padding:9px 12px;border-radius:9px;cursor:pointer;font-weight:700;transition:.2s}
+nav button.active,nav button:hover{background:#ffffff35}
+.tts-toggle{
+  background:rgba(255,255,255,.2) !important;
+  border:1px solid rgba(255,255,255,.35) !important;
+  font-size:1.05rem;
+  padding:7px 11px !important;
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+.tts-toggle.muted{
+  opacity:.75;
+  background:rgba(0,0,0,.18) !important;
+}
+
+main{width:92%;max-width:1100px;margin:30px auto 50px;flex:1}
+.page{display:none;animation:appear .25s ease}
+.page.active{display:block}
+@keyframes appear{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+
+/* 3D MONITOR HOME PAGE */
+.monitor-stage{
+  perspective:1200px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:20px 10px 30px;
+}
+.monitor-3d{
+  width:min(760px,100%);
+  transform:rotateX(4deg) rotateY(-5deg);
+  transition:transform .5s cubic-bezier(.22,1,.36,1);
+  transform-style:preserve-3d;
+}
+.monitor-3d:hover{
+  transform:rotateX(0deg) rotateY(0deg);
+}
+.monitor-bezel{
+  background:linear-gradient(145deg,#2b3040,#181b24);
+  padding:22px 22px 30px;
+  border-radius:24px;
+  position:relative;
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.5),
+    inset 0 2px 3px rgba(255,255,255,.18),
+    inset 0 -3px 6px rgba(0,0,0,.6);
+  border:2px solid #353b4f;
+}
+.monitor-webcam{
+  width:10px;
+  height:10px;
+  background:#0c0e14;
+  border-radius:50%;
+  margin:0 auto 12px;
+  box-shadow:0 0 0 2px #2f3548, inset 0 0 3px #4b6cb7;
+}
+.monitor-screen{
+  background:radial-gradient(circle at 20% 20%, #2a396b 0%, #151c36 55%, #0e1326 100%);
+  border-radius:12px;
+  padding:clamp(36px,6vw,70px) 24px;
+  text-align:center;
+  color:white;
+  position:relative;
+  overflow:hidden;
+  box-shadow:inset 0 0 25px rgba(0,0,0,.7);
+  min-height:360px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.monitor-screen::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(125deg,rgba(255,255,255,.12) 0%,rgba(255,255,255,.03) 38%,transparent 40%);
+  pointer-events:none;
+}
+.screen-logo-badge{
+  width:96px;
+  height:96px;
+  border-radius:26px;
+  background:linear-gradient(135deg,#6479d8,#9386d0);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:48px;
+  margin-bottom:18px;
+  box-shadow:0 12px 30px rgba(100,121,216,.45), inset 0 2px 4px rgba(255,255,255,.4);
+  animation:floatLogo 3.5s ease-in-out infinite;
+}
+@keyframes floatLogo{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}
+.monitor-screen h1{
+  font-size:clamp(2rem,4.5vw,3rem);
+  font-weight:900;
+  letter-spacing:-0.5px;
+  margin-bottom:8px;
+  text-shadow:0 4px 15px rgba(0,0,0,.35);
+}
+.monitor-screen .tagline{
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.2);
+  padding:6px 16px;
+  border-radius:20px;
+  font-size:.85rem;
+  font-weight:800;
+  letter-spacing:1px;
+  color:#dce3ff;
+  margin-bottom:26px;
+}
+.power-btn{
+  border:0;
+  background:linear-gradient(135deg,#6479d8,#7f6ee6);
+  color:white;
+  padding:14px 32px;
+  border-radius:14px;
+  cursor:pointer;
+  font:900 1.05rem 'Poppins',sans-serif;
+  box-shadow:0 8px 24px rgba(100,121,216,.5);
+  transition:transform .2s, filter .2s;
+  position:relative;
+  z-index:2;
+}
+.power-btn:hover{
+  transform:translateY(-2px) scale(1.03);
+  filter:brightness(1.08);
+}
+.monitor-chin{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-top:14px;
+  color:#8f98b2;
+  font-size:.75rem;
+  font-weight:800;
+  letter-spacing:2px;
+}
+.power-led{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#5eead4;
+  box-shadow:0 0 8px #5eead4;
+}
+.monitor-neck{
+  width:110px;
+  height:54px;
+  margin:-4px auto 0;
+  background:linear-gradient(90deg,#1d2230,#384057,#1d2230);
+  clip-path:polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+  box-shadow:inset 0 6px 12px rgba(0,0,0,.5);
+}
+.monitor-base{
+  width:260px;
+  height:18px;
+  margin:0 auto;
+  background:linear-gradient(180deg,#3a4259,#1c202e);
+  border-radius:12px 12px 6px 6px;
+  box-shadow:0 14px 25px rgba(0,0,0,.4);
+}
+
+/* Translucent cards over background for readability */
+.panel, .match-panel, .challenge, .stats .stat, .objectives, .result-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px);
+}
+
+.btn{border:0;background:var(--blue);color:white;padding:12px 20px;border-radius:11px;cursor:pointer;font-weight:900;margin:6px 4px}
+.btn:hover{filter:brightness(.94)}
+.btn.light{background:white;color:var(--ink);border:1px solid #e2e6f3}
+.heading{margin-bottom:22px}
+.heading h2{font-size:clamp(1.7rem,4vw,2.2rem)}
+.heading p{font-size:1.08rem;color:#68738d}
+.explore-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:16px}
+.hardware-card{background:rgba(255,255,255,0.95);border:2px solid transparent;border-radius:18px;padding:20px;min-height:165px;text-align:center;cursor:pointer;color:var(--ink);box-shadow:0 5px 18px rgba(0,0,0,0.15);transition:.2s;backdrop-filter: blur(5px);}
+.hardware-card:hover,.hardware-card:focus{transform:translateY(-4px);border-color:var(--blue);outline:none}
+.hardware-card .icon{font-size:48px;display:block}
+.hardware-card strong{display:block;font-size:1.12rem;margin:7px}
+.hardware-card small{color:#68738d}
+
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(27,36,66,0.75);z-index:50;align-items:center;justify-content:center;padding:18px;backdrop-filter: blur(5px);}
+.modal-bg.show{display:flex}
+.modal{background:white;padding:30px;border-radius:22px;width:min(470px,100%);position:relative;box-shadow:0 20px 40px rgba(0,0,0,0.3)}
+.modal .close{position:absolute;right:12px;top:10px;border:0;border-radius:50%;width:35px;height:35px;cursor:pointer}
+.modal .big{font-size:4rem}
+.modal h3{font-size:1.6rem;margin:8px 0}
+.category{display:inline-block;background:#e9edff;color:#4057b5;border-radius:20px;padding:5px 12px;margin:5px 0 12px;font-weight:900}
+
+.challenge-bg{background:rgba(255, 255, 255, 0.2);border: 1px solid rgba(255, 255, 255, 0.4);padding:clamp(15px,4vw,30px);border-radius:24px;backdrop-filter: blur(8px);}
+.challenge{background:rgba(255, 255, 255, 0.96);border-radius:20px;padding:clamp(20px,4vw,35px);max-width:780px;margin:15px auto;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,0.15)}
+.challenge-label{display:inline-block;background:#fff5d6;padding:6px 13px;border-radius:20px;font-weight:900;font-size:.8rem}
+.progress-meta{display:flex;justify-content:space-between;font-weight:800;margin:15px 0 6px}
+.progress-bg{height:11px;background:#e8ebf5;border-radius:20px;overflow:hidden}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#6479d8,#b9a4e8,#82c9a7);transition:.3s}
+.question-icon{font-size:clamp(65px,11vw,100px);margin:15px}
+.challenge h3{font-size:clamp(1.2rem,3vw,1.6rem);margin:12px 0}
+.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:20px 0}
+.choice{padding:14px;background:#f8f9ff;border:2px solid #e1e6f4;border-radius:13px;cursor:pointer;font:800 1rem 'Nunito';color:var(--ink);transition:.2s}
+.choice:hover:not(:disabled){border-color:var(--blue);background:#e9edff}
+.choice:disabled{cursor:default}
+.choice.correct{background:#e3f7ed;border-color:#69bb91;color:#246e4c}
+.choice.wrong{background:#ffe8eb;border-color:#df7885;color:#9c3545}
+.feedback{min-height:32px;font-weight:900;margin:12px 0}
+.match-panel,.panel{background:rgba(255,255,255,0.95);padding:23px;border-radius:20px;margin-top:20px;box-shadow:0 6px 20px rgba(0,0,0,0.15)}
+.match-row{display:grid;grid-template-columns:1fr 1.3fr;gap:12px;align-items:center;background:#f5f6ff;padding:13px;border-radius:12px;margin:10px 0}
+.match-row select{width:100%;padding:12px;border:1px solid #ccd3e9;border-radius:9px;background:white}
+.ipo-explain{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:15px 0}
+.ipo-step{text-align:center;padding:15px;border-radius:14px}
+.ipo-step strong{display:block}
+.ipo-step p{font-size:.9rem}
+.result-card{background:linear-gradient(120deg,#fff5d6,#e9edff,#e3f7ed);padding:22px;border-radius:17px;margin-top:15px}
+.result-score{font-size:2.5rem;font-weight:900;color:#5269c9}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px}
+.stat{padding:20px;border-radius:17px}
+.stat h3{font-size:1rem}
+.number{font-size:2rem;font-weight:900;margin-top:8px}
+
+footer{text-align:center;padding:25px;color:#fff;border-top:1px solid rgba(255,255,255,0.15);background:rgba(15,22,38,0.85);backdrop-filter: blur(8px);}
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:100}
+
+@media(max-width:650px){
+  .header-content{justify-content:center}
+  nav{justify-content:center}
+  .choices{grid-template-columns:1fr}
+  .match-row{grid-template-columns:1fr}
+  .ipo-explain{grid-template-columns:1fr}
+  .monitor-3d{transform:none}
+  .monitor-bezel{padding:14px 14px 20px}
+}
+
+.heading{position:relative;isolation:isolate;overflow:hidden;border-radius:20px;padding:30px 32px;min-height:145px;display:flex;flex-direction:column;justify-content:center;color:#fff;background:linear-gradient(100deg,rgba(12,25,55,.88),rgba(25,65,105,.72),rgba(67,54,125,.72)),url("computer-quest-background.png") center 48%/cover no-repeat;box-shadow:0 10px 28px rgba(0,0,0,.3)}
+.heading h2{color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.4);margin:0 0 6px}
+.heading p{color:rgba(255,255,255,.92);max-width:760px}
+.page .heading{margin-bottom:22px}
+</style>
+</head>
+
+<body>
+<header>
+<div class="header-content">
+<div class="logo">💻 Computer Quest</div>
+<nav>
+<button class="active" onclick="showPage('home',this)">Home</button>
+<button onclick="showPage('explore',this)">Explore</button>
+<button onclick="showPage('identify',this)">Identify</button>
+<button onclick="showPage('ipo',this)">IPO Challenge</button>
+<button onclick="showPage('match',this)">Match It</button>
+<button onclick="showPage('quiz',this)">Final Quiz</button>
+<button onclick="showPage('progress',this)">My Progress</button>
+<button id="ttsToggle" class="tts-toggle" onclick="toggleTTS()" title="Toggle Voice (Text-to-Speech)" aria-label="Toggle Voice">🔊</button>
+</nav>
+</div>
+</header>
+
+<main>
+<!-- 3D MONITOR FRONT PAGE -->
+<section id="home" class="page active">
+  <div class="monitor-stage">
+    <div class="monitor-3d">
+      <div class="monitor-bezel">
+        <div class="monitor-webcam"></div>
+        <div class="monitor-screen">
+          <div class="screen-logo-badge">💻</div>
+          <h1>Computer Quest</h1>
+          <span class="tagline">GRADE 7 • TLE – ICT</span>
+          <button class="power-btn" onclick="go('explore')">Power On →</button>
+        </div>
+        <div class="monitor-chin">
+          <span class="power-led"></span>
+          <span>COMPUTER QUEST DISPLAY</span>
+        </div>
+      </div>
+      <div class="monitor-neck"></div>
+      <div class="monitor-base"></div>
+    </div>
+  </div>
+</section>
+
+<section id="explore" class="page">
+<div class="heading">
+<h2>🔍 Explore Computer Hardware</h2>
+<p>Click the cards to learn about each component. Enjoy learning!</p>
+</div>
+<div class="explore-grid" id="hardwareCards"></div>
+</section>
+
+<section id="identify" class="page">
+<div class="heading">
+<h2>🎮 Level 1: Name That Hardware!</h2>
+<p>Look at the picture and select the correct hardware name.</p>
+</div>
+<div class="challenge-bg"><div class="challenge">
+<span class="challenge-label">HARDWARE DETECTIVE</span>
+<div class="progress-meta"><span id="identifyCount">Question 1</span><span id="identifyPercent">0%</span></div>
+<div class="progress-bg"><div class="progress-fill" id="identifyProgress"></div></div>
+<div class="question-icon" id="identifyIcon">🖥️</div>
+<h3 id="identifyQuestion">What is this computer component?</h3>
+<div class="choices" id="identifyChoices"></div>
+<div class="feedback" id="identifyFeedback"></div>
+<button class="btn" id="identifyNext" onclick="nextIdentify()" hidden>Next Question →</button>
+</div></div>
+</section>
+
+<section id="ipo" class="page">
+<div class="heading">
+<h2>🔄 Level 2: Input, Process, or Output?</h2>
+<p>Classify each device according to its role in the computer system.</p>
+</div>
+<div class="panel">
+<h3>Understand the IPO Cycle</h3>
+<div class="ipo-explain">
+<div class="ipo-step" style="background:#fff5d6"><strong>⌨️ INPUT</strong><p>Data or instructions enter the computer.</p></div>
+<div class="ipo-step" style="background:#f0eaff"><strong>⚙️ PROCESS</strong><p>The computer works on the data.</p></div>
+<div class="ipo-step" style="background:#e3f7ed"><strong>🖥️ OUTPUT</strong><p>The computer presents the result.</p></div>
+</div>
+<p><b>KEEP IN MIND:</b> Storage keeps data for later use. It is separate from the three basic IPO stages.</p>
+</div>
+<div class="challenge-bg"><div class="challenge">
+<span class="challenge-label">CHALLENGED • ENGAGED • LEARNED</span>
+<div class="progress-meta"><span id="ipoCount">Question 1</span><span id="ipoPercent">0%</span></div>
+<div class="progress-bg"><div class="progress-fill" id="ipoProgress"></div></div>
+<div class="question-icon" id="ipoIcon">⌨️</div>
+<h3 id="ipoQuestion">Which category does this belong to?</h3>
+<div class="choices" id="ipoChoices">
+<button class="choice" onclick="answerIPO('Input')">INPUT</button>
+<button class="choice" onclick="answerIPO('Process')">PROCESS</button>
+<button class="choice" onclick="answerIPO('Output')">OUTPUT</button>
+</div>
+<div class="feedback" id="ipoFeedback"></div>
+<button class="btn" id="ipoNext" onclick="nextIPO()" hidden>Next Question →</button>
+</div></div>
+</section>
+
+<section id="match" class="page">
+<div class="heading"><h2>🧩 Level 3: Mix & Match!</h2><p>Choose the correct function for each hardware component.</p></div>
+<div class="match-panel">
+<div id="matchingQuestions"></div>
+<div style="text-align:center">
+<button class="btn" onclick="checkMatching()">Check My Answers</button>
+<button class="btn light" onclick="startMatching()">Try Again</button>
+</div>
+<div class="feedback" id="matchFeedback"></div>
+</div>
+</section>
+
+<section id="quiz" class="page">
+<div class="heading"><h2>🏆 Final Knowledge Challenge</h2><p>You made it here! This is the last step that will test what you have learned from the lesson.</p></div>
+<div class="challenge-bg"><div class="challenge">
+<span class="challenge-label">FINAL ASSESSMENT</span>
+<div class="progress-meta"><span id="quizCount">Question 1</span><span id="quizPercent">0%</span></div>
+<div class="progress-bg"><div class="progress-fill" id="quizProgress"></div></div>
+<h3 id="quizQuestion"></h3>
+<div class="choices" id="quizChoices"></div>
+<div class="feedback" id="quizFeedback"></div>
+<button class="btn" id="quizNext" onclick="nextQuiz()" hidden>Next Question →</button>
+<div id="quizResult"></div>
+</div></div>
+</section>
+
+<section id="progress" class="page">
+<div class="heading"><h2>🌟 My Learning Progress</h2><p>Every challenge is a chance to learn something new.</p></div>
+<div class="stats">
+<div class="stat" style="background:#fff5d6"><h3>⭐ Total Points</h3><div class="number" id="totalPoints">0</div></div>
+<div class="stat" style="background:#e9edff"><h3>🎯 Activities Completed</h3><div class="number" id="completedActivities">0 / 4</div></div>
+<div class="stat" style="background:#f0eaff"><h3>🏅 Achievement</h3><div class="number" id="achievement">Beginner</div></div>
+</div>
+<div class="panel">
+<h3>Your Learning Journey</h3>
+<p>Complete the activities to build your knowledge and earn points.</p>
+<div class="progress-bg" style="margin-top:15px"><div class="progress-fill" id="overallProgress"></div></div>
+<p id="progressText">0% completed</p>
+</div>
+<button class="btn light" onclick="resetProgress()">Reset My Progress</button>
+</section>
+</main>
+
+<div class="modal-bg" id="hardwareModal" role="dialog" aria-modal="true">
+<div class="modal">
+<button class="close" onclick="closeHardware()">×</button>
+<div class="big" id="modalIcon">🖥️</div>
+<h3 id="modalTitle">Monitor</h3>
+<span class="category" id="modalCategory">Output Device</span>
+<p id="modalDescription"></p>
+</div>
+</div>
+<canvas id="confetti"></canvas>
+
+<footer>
+<p><b>Computer Quest</b> • Interactive Digital Instructional Material</p>
+<p>Grade 7 – TLE / ICT | Learn • Explore • Discover • Achieve</p>
+</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+
+// TEXT-TO-SPEECH (Natural American English Female Voice)
+let ttsEnabled=true;
+let selectedVoice=null;
+
+function loadVoices(){
+  if(!('speechSynthesis' in window))return;
+  const voices=speechSynthesis.getVoices();
+  if(!voices.length)return;
+  const preferredNames=[
+    'Google US English',
+    'Microsoft Aria Online (Natural) - English (United States)',
+    'Microsoft Jenny Online (Natural) - English (United States)',
+    'Microsoft Zira',
+    'Samantha',
+    'Ava',
+    'Allison'
+  ];
+  selectedVoice=
+    voices.find(v=>preferredNames.some(name=>v.name.includes(name))) ||
+    voices.find(v=>v.lang==='en-US' && /female|woman|girl|zira|aria|jenny|samantha|ava/i.test(v.name)) ||
+    voices.find(v=>v.lang==='en-US') ||
+    voices.find(v=>v.lang.startsWith('en'));
+}
+if('speechSynthesis' in window){
+  loadVoices();
+  speechSynthesis.onvoiceschanged=loadVoices;
+}
+
+function speak(text){
+  if(!ttsEnabled || !('speechSynthesis' in window) || !text)return;
+  speechSynthesis.cancel();
+  const utter=new SpeechSynthesisUtterance(text);
+  if(selectedVoice)utter.voice=selectedVoice;
+  utter.lang='en-US';
+  utter.rate=0.98;
+  utter.pitch=1.08;
+  speechSynthesis.speak(utter);
+}
+
+function toggleTTS(){
+  ttsEnabled=!ttsEnabled;
+  const btn=$('ttsToggle');
+  btn.textContent=ttsEnabled?'🔊':'🔇';
+  btn.classList.toggle('muted',!ttsEnabled);
+  if(!ttsEnabled && 'speechSynthesis' in window){
+    speechSynthesis.cancel();
+  }else if(ttsEnabled){
+    speak('Voice enabled.');
+  }
+}
+
+function showPage(id,button){
+  if('speechSynthesis' in window)speechSynthesis.cancel();
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
+  document.querySelectorAll('nav button:not(.tts-toggle)').forEach(b=>b.classList.toggle('active',b===button));
+  if(id==='progress')updateProgress();
+  if(id==='identify' && identifyIndex<identifyData.length)speak($('identifyQuestion').textContent);
+  if(id==='ipo' && ipoIndex<ipoData.length)speak($('ipoQuestion').textContent);
+  if(id==='quiz' && quizIndex<quizData.length)speak($('quizQuestion').textContent);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function go(id){
+  const button=[...document.querySelectorAll('nav button')].find(b=>b.getAttribute('onclick')?.includes("'"+id+"'"));
+  showPage(id,button);
+}
+
+const hardware=[
+  {name:'Monitor',icon:'🖥️',type:'Output Device',description:'A monitor displays text, pictures, videos, and other visual information from the computer.'},
+  {name:'Keyboard',icon:'⌨️',type:'Input Device',description:'A keyboard allows users to enter letters, numbers, symbols, and commands into a computer.'},
+  {name:'Mouse',icon:'🖱️',type:'Input Device',description:'A mouse controls the pointer and allows users to click, select, drag, and move items on the screen.'},
+  {name:'System Unit',icon:'🖥️',type:'Computer Case',description:'The system unit houses important internal components such as the motherboard, CPU, RAM, and storage drive.'},
+  {name:'Printer',icon:'🖨️',type:'Output Device',description:'A printer produces a physical copy of digital documents and images.'},
+  {name:'Scanner',icon:'📠',type:'Input Device',description:'A scanner converts printed documents and images into digital form.'},
+  {name:'Speakers',icon:'🔊',type:'Output Device',description:'Speakers produce sound from the computer, such as music, videos, and notifications.'},
+  {name:'Microphone',icon:'🎤',type:'Input Device',description:'A microphone captures sound or voice and sends it to the computer.'},
+  {name:'Webcam',icon:'📷',type:'Input Device',description:'A webcam captures images and videos and sends them to the computer.'},
+  {name:'Hard Drive',icon:'💽',type:'Storage Device',description:'A hard drive stores files, applications, and other digital information.'},
+  {name:'RAM',icon:'🧩',type:'Memory Component',description:'RAM temporarily holds data and instructions that the computer is currently using.'},
+  {name:'CPU',icon:'⚙️',type:'Processing Component',description:'The Central Processing Unit executes instructions and performs calculations.'}
+];
+
+hardware.forEach((h,i)=>{
+  const card=document.createElement('button');
+  card.className='hardware-card';
+  card.type='button';
+  card.innerHTML=`<span class="icon">${h.icon}</span><strong>${h.name}</strong><small>${h.type}</small>`;
+  card.addEventListener('click',()=>showHardware(i));
+  document.getElementById('hardwareCards').appendChild(card);
+});
+
+function showHardware(i){
+  const h=hardware[i];
+  $('modalIcon').textContent=h.icon;
+  $('modalTitle').textContent=h.name;
+  $('modalCategory').textContent=h.type;
+  $('modalDescription').textContent=h.description;
+  $('hardwareModal').classList.add('show');
+  speak(`${h.name}. ${h.type}. ${h.description}`);
+}
+function closeHardware(){
+  $('hardwareModal').classList.remove('show');
+  if('speechSynthesis' in window)speechSynthesis.cancel();
+}
+$('hardwareModal').addEventListener('click',e=>{if(e.target.id==='hardwareModal')closeHardware()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeHardware()});
+
+// Browser-generated sound effects; no sound files required.
+let audioContext;
+function sound(correct){
+  try{
+    audioContext=audioContext||new(window.AudioContext||window.webkitAudioContext)();
+    if(audioContext.state==='suspended')audioContext.resume();
+    const now=audioContext.currentTime;
+    (correct?[660,880]:[190,145]).forEach((freq,i)=>{
+      const osc=audioContext.createOscillator();
+      const gain=audioContext.createGain();
+      osc.type=correct?'sine':'triangle';
+      osc.frequency.value=freq;
+      gain.gain.setValueAtTime(.0001,now+i*.13);
+      gain.gain.exponentialRampToValueAtTime(.12,now+i*.13+.025);
+      gain.gain.exponentialRampToValueAtTime(.0001,now+i*.13+.18);
+      osc.connect(gain);gain.connect(audioContext.destination);
+      osc.start(now+i*.13);osc.stop(now+i*.13+.2);
+    });
+  }catch(e){}
+}
+function wrongSound(){
+  sound(false);
+  if(navigator.vibrate)navigator.vibrate([100,60,150]);
+}
+
+// Confetti animation
+let confettiFrame;
+function celebrate(){
+  const canvas=$('confetti'),ctx=canvas.getContext('2d');
+  canvas.width=innerWidth;canvas.height=innerHeight;
+  const colors=['#6479d8','#f6d878','#b9a4e8','#8bd3b1','#f39ba8'];
+  const pieces=Array.from({length:140},()=>({
+    x:Math.random()*innerWidth,y:-20-Math.random()*innerHeight*.4,
+    size:5+Math.random()*7,speed:2+Math.random()*4,
+    drift:(Math.random()-.5)*3,angle:Math.random()*6,
+    color:colors[Math.floor(Math.random()*colors.length)]
+  }));
+  cancelAnimationFrame(confettiFrame);
+  let frame=0;
+  function draw(){
+    ctx.clearRect(0,0,innerWidth,innerHeight);
+    pieces.forEach(p=>{
+      p.y+=p.speed;p.x+=p.drift;p.angle+=.08;
+      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.angle);
+      ctx.fillStyle=p.color;ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size*.65);
+      ctx.restore();
+    });
+    if(++frame<160)confettiFrame=requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,innerWidth,innerHeight);
+  }
+  draw();
+}
+
+// Progress is stored in this browser.
+let scores={};
+try{scores=JSON.parse(localStorage.getItem('cq_scores')||'{}')||{};}catch(error){scores={};}
+function finishActivity(name,score,max){
+  const percent=Math.round(score/max*100);
+  if(scores[name]===undefined||percent>scores[name]){
+    scores[name]=percent;
+    localStorage.setItem('cq_scores',JSON.stringify(scores));
+  }
+  updateProgress();
+}
+function updateProgress(){
+  const names=['identify','ipo','match','quiz'];
+  const done=names.filter(n=>scores[n]!==undefined).length;
+  const total=names.reduce((sum,n)=>sum+(scores[n]||0),0);
+  $('totalPoints').textContent=total;
+  $('completedActivities').textContent=done+' / 4';
+  $('achievement').textContent=total>=350?'ICT Master 🏆':total>=220?'Hardware Expert ⭐':total>=100?'Explorer 🌟':'Beginner';
+  $('overallProgress').style.width=(done/4*100)+'%';
+  $('progressText').textContent=Math.round(done/4*100)+'% completed';
+}
+function resetProgress(){
+  if(!confirm('Are you sure you want to reset your saved progress?'))return;
+  scores={};localStorage.removeItem('cq_scores');updateProgress();
+}
+
+// IDENTIFY HARDWARE
+const identifyData=[
+  {icon:'🖥️',answer:'Monitor',options:['Monitor','Keyboard','Printer','Mouse']},
+  {icon:'⌨️',answer:'Keyboard',options:['Scanner','Keyboard','Speaker','Monitor']},
+  {icon:'🖱️',answer:'Mouse',options:['Printer','CPU','Mouse','Microphone']},
+  {icon:'🖨️',answer:'Printer',options:['Webcam','Printer','RAM','Keyboard']},
+  {icon:'🎤',answer:'Microphone',options:['Monitor','Mouse','Microphone','Speaker']},
+  {icon:'📷',answer:'Webcam',options:['Webcam','Hard Drive','Printer','CPU']},
+  {icon:'🔊',answer:'Speakers',options:['Keyboard','Speakers','Scanner','RAM']},
+  {icon:'📠',answer:'Scanner',options:['CPU','Monitor','Scanner','Mouse']}
+];
+let identifyIndex=0,identifyScore=0,identifyAnswered=false;
+function renderIdentify(){
+  if(identifyIndex>=identifyData.length){
+    $('identifyIcon').textContent='🏆';
+    $('identifyQuestion').textContent='Challenge Completed!';
+    $('identifyChoices').innerHTML='';
+    $('identifyCount').textContent='Finished!';
+    $('identifyPercent').textContent='100%';
+    $('identifyProgress').style.width='100%';
+    $('identifyFeedback').textContent=`Your score: ${identifyScore}/${identifyData.length}`;
+    $('identifyNext').hidden=true;
+    finishActivity('identify',identifyScore,identifyData.length);
+    celebrate();return;
+  }
+  identifyAnswered=false;
+  const q=identifyData[identifyIndex];
+  $('identifyCount').textContent=`Question ${identifyIndex+1} of ${identifyData.length}`;
+  $('identifyPercent').textContent=Math.round(identifyIndex/identifyData.length*100)+'%';
+  $('identifyProgress').style.width=(identifyIndex/identifyData.length*100)+'%';
+  $('identifyIcon').textContent=q.icon;
+  $('identifyQuestion').textContent='What is the name of this computer hardware?';
+  $('identifyFeedback').textContent='';
+  $('identifyNext').hidden=true;
+  $('identifyChoices').innerHTML='';
+  q.options.forEach(option=>{
+    const b=document.createElement('button');
+    b.className='choice';b.textContent=option;
+    b.onclick=()=>answerIdentify(option,b);
+    $('identifyChoices').appendChild(b);
+  });
+}
+function answerIdentify(answer,btn){
+  if(identifyAnswered)return;
+  identifyAnswered=true;
+  const q=identifyData[identifyIndex];
+  document.querySelectorAll('#identifyChoices .choice').forEach(b=>{
+    b.disabled=true;
+    if(b.textContent===q.answer)b.classList.add('correct');
+  });
+  if(answer===q.answer){
+    identifyScore++;sound(true);
+    $('identifyFeedback').textContent='✨ Correct! Great job!';
+    $('identifyFeedback').style.color='#258b66';
+  }else{
+    btn.classList.add('wrong');wrongSound();
+    $('identifyFeedback').textContent='Not quite! The correct answer is '+q.answer+'.';
+    $('identifyFeedback').style.color='#c24759';
+  }
+  $('identifyNext').hidden=false;
+}
+function nextIdentify(){if(!identifyAnswered)return;identifyIndex++;renderIdentify();if($('identify').classList.contains('active')&&identifyIndex<identifyData.length)speak($('identifyQuestion').textContent)}
+
+// INPUT, PROCESS, OUTPUT
+const ipoData=[
+  {icon:'⌨️',name:'Keyboard',answer:'Input',why:'A keyboard sends data and commands into the computer.'},
+  {icon:'🖱️',name:'Mouse',answer:'Input',why:'A mouse sends user actions and commands to the computer.'},
+  {icon:'🖥️',name:'Monitor',answer:'Output',why:'A monitor displays the results produced by the computer.'},
+  {icon:'🖨️',name:'Printer',answer:'Output',why:'A printer produces printed information.'},
+  {icon:'⚙️',name:'CPU',answer:'Process',why:'The CPU executes instructions and processes data.'},
+  {icon:'🔊',name:'Speakers',answer:'Output',why:'Speakers provide sound as an output.'},
+  {icon:'🎤',name:'Microphone',answer:'Input',why:'A microphone sends captured sound into the computer.'},
+  {icon:'📷',name:'Webcam',answer:'Input',why:'A webcam captures visual information for the computer.'}
+];
+let ipoIndex=0,ipoScore=0,ipoAnswered=false;
+function renderIPO(){
+  if(ipoIndex>=ipoData.length){
+    $('ipoIcon').textContent='🏆';
+    $('ipoQuestion').textContent='IPO Challenge Completed!';
+    $('ipoChoices').innerHTML='';
+    $('ipoCount').textContent='Finished!';
+    $('ipoPercent').textContent='100%';
+    $('ipoProgress').style.width='100%';
+    $('ipoFeedback').textContent=`Your score: ${ipoScore}/${ipoData.length}`;
+    $('ipoNext').hidden=true;
+    finishActivity('ipo',ipoScore,ipoData.length);
+    celebrate();return;
+  }
+  ipoAnswered=false;
+  const q=ipoData[ipoIndex];
+  $('ipoCount').textContent=`Question ${ipoIndex+1} of ${ipoData.length}`;
+  $('ipoPercent').textContent=Math.round(ipoIndex/ipoData.length*100)+'%';
+  $('ipoProgress').style.width=(ipoIndex/ipoData.length*100)+'%';
+  $('ipoIcon').textContent=q.icon;
+  $('ipoQuestion').textContent=`Where does the ${q.name} belong in the IPO cycle?`;
+  $('ipoFeedback').textContent='';
+  $('ipoNext').hidden=true;
+  document.querySelectorAll('#ipo .choice').forEach(b=>{b.disabled=false;b.classList.remove('correct','wrong')});
+}
+function answerIPO(answer){
+  if(ipoAnswered)return;
+  ipoAnswered=true;
+  const q=ipoData[ipoIndex];
+  if(answer===q.answer){
+    ipoScore++;sound(true);
+    $('ipoFeedback').textContent='✨ Correct! '+q.why;
+    $('ipoFeedback').style.color='#258b66';
+  }else{
+    wrongSound();
+    $('ipoFeedback').textContent='Incorrect. The correct answer is '+q.answer+'. '+q.why;
+    $('ipoFeedback').style.color='#c24759';
+  }
+  document.querySelectorAll('#ipo .choice').forEach(b=>{
+    b.disabled=true;
+    if(b.textContent===q.answer.toUpperCase())b.classList.add('correct');
+    else if(b.textContent===answer.toUpperCase())b.classList.add('wrong');
+  });
+  $('ipoNext').hidden=false;
+}
+function nextIPO(){if(!ipoAnswered)return;ipoIndex++;renderIPO();if($('ipo').classList.contains('active')&&ipoIndex<ipoData.length)speak($('ipoQuestion').textContent)}
+
+// MATCH THE HARDWARE TO ITS FUNCTION
+const matchData=[
+  {name:'Keyboard',answer:'Enters letters and numbers'},
+  {name:'Monitor',answer:'Displays visual information'},
+  {name:'Mouse',answer:'Controls the pointer'},
+  {name:'Printer',answer:'Produces printed documents'},
+  {name:'Speakers',answer:'Produces sound'},
+  {name:'Scanner',answer:'Converts printed images into digital form'}
+];
+const matchOptions=matchData.map(x=>x.answer);
+function startMatching(){
+  $('matchingQuestions').innerHTML='';
+  $('matchFeedback').textContent='';
+  [...matchData].sort(()=>Math.random()-.5).forEach(item=>{
+    const row=document.createElement('div');row.className='match-row';
+    const label=document.createElement('b');label.textContent=item.name;
+    const select=document.createElement('select');select.dataset.answer=item.answer;
+    const placeholder=document.createElement('option');placeholder.value='';placeholder.textContent='Select a function';select.appendChild(placeholder);
+    [...matchOptions].sort(()=>Math.random()-.5).forEach(text=>{
+      const option=document.createElement('option');option.value=text;option.textContent=text;select.appendChild(option);
+    });
+    row.append(label,select);$('matchingQuestions').appendChild(row);
+  });
+}
+function checkMatching(){
+  const rows=[...document.querySelectorAll('.match-row')];
+  const selects=rows.map(r=>r.querySelector('select'));
+  if(selects.some(s=>!s.value)){
+    $('matchFeedback').textContent='Please answer every row before checking.';
+    $('matchFeedback').style.color='#c24759';return;
+  }
+  let score=0;
+  rows.forEach(row=>{
+    const s=row.querySelector('select');
+    const correct=s.value===s.dataset.answer;
+    if(correct)score++;
+    row.style.background=correct?'#e3f7ed':'#ffe8eb';
+    s.disabled=true;
+  });
+  $('matchFeedback').textContent=`You matched ${score} out of ${rows.length} correctly.`;
+  $('matchFeedback').style.color=score===rows.length?'#258b66':'#c24759';
+  if(score===rows.length){sound(true);celebrate();}else{wrongSound();}
+  finishActivity('match',score,rows.length);
+}
+
+// FINAL QUIZ
+const quizData=[
+  {q:'Which part of the computer displays text, pictures, and videos?',a:'Monitor',o:['Monitor','Keyboard','Mouse','Microphone']},
+  {q:'Which device is mainly used to enter letters and numbers?',a:'Keyboard',o:['Printer','Keyboard','Speaker','Monitor']},
+  {q:'What is the main function of the mouse?',a:'Controls the pointer',o:['Prints documents','Stores files','Controls the pointer','Produces sound']},
+  {q:'Which device converts a printed picture into a digital file?',a:'Scanner',o:['Scanner','Speaker','Monitor','Projector']},
+  {q:'What does CPU stand for?',a:'Central Processing Unit',o:['Computer Power Utility','Central Processing Unit','Control Program User','Central Print Unit']},
+  {q:'Which IPO stage receives data and instructions?',a:'Input',o:['Output','Storage','Input','Process']},
+  {q:'Which IPO stage performs operations on data?',a:'Process',o:['Input','Process','Output','Display']},
+  {q:'Which of these is an output device?',a:'Speakers',o:['Keyboard','Mouse','Microphone','Speakers']},
+  {q:'Which component temporarily holds data currently being used?',a:'RAM',o:['RAM','Printer','Scanner','Webcam']},
+  {q:'Which device produces a paper copy of a document?',a:'Printer',o:['Monitor','Printer','Mouse','Microphone']}
+];
+let quizIndex=0,quizScore=0,quizAnswered=false;
+function startQuiz(){quizIndex=0;quizScore=0;quizAnswered=false;$('quizResult').innerHTML='';renderQuiz()}
+function renderQuiz(){
+  const q=quizData[quizIndex];
+  if(!q){showQuizResult();return}
+  quizAnswered=false;$('quizCount').textContent=`Question ${quizIndex+1} of ${quizData.length}`;
+  $('quizPercent').textContent=Math.round(quizIndex/quizData.length*100)+'%';$('quizProgress').style.width=(quizIndex/quizData.length*100)+'%';
+  $('quizQuestion').textContent=q.q;$('quizFeedback').textContent='';$('quizNext').hidden=true;$('quizChoices').innerHTML='';
+  [...q.o].sort(()=>Math.random()-.5).forEach(option=>{
+    const b=document.createElement('button');b.className='choice';b.type='button';b.textContent=option;
+    b.addEventListener('click',()=>answerQuiz(option,b));$('quizChoices').appendChild(b);
+  });
+}
+function answerQuiz(answer,btn){
+  if(quizAnswered)return;quizAnswered=true;const q=quizData[quizIndex];
+  document.querySelectorAll('#quizChoices .choice').forEach(b=>{b.disabled=true;if(b.textContent===q.a)b.classList.add('correct')});
+  if(answer===q.a){quizScore++;sound(true);$('quizFeedback').textContent='✨ Correct! Well done.';$('quizFeedback').style.color='#258b66'}
+  else{btn.classList.add('wrong');wrongSound();$('quizFeedback').textContent='Good try! The correct answer is '+q.a+'.';$('quizFeedback').style.color='#c24759'}
+  $('quizNext').textContent=quizIndex===quizData.length-1?'See My Results →':'Next Question →';$('quizNext').hidden=false;
+}
+function nextQuiz(){if(!quizAnswered)return;quizIndex++;if(quizIndex<quizData.length){renderQuiz();if($('quiz').classList.contains('active'))speak($('quizQuestion').textContent);}else showQuizResult()}
+function showQuizResult(){
+  $('quizCount').textContent='Completed!';
+  $('quizPercent').textContent='100%';
+  $('quizProgress').style.width='100%';
+  $('quizQuestion').textContent='You completed the Final Knowledge Challenge!';
+  $('quizChoices').innerHTML='';
+  $('quizFeedback').textContent='';
+  $('quizNext').hidden=true;
+  const percent=Math.round(quizScore/quizData.length*100);
+  $('quizResult').innerHTML=`
+    <div class="result-card">
+      <div class="result-score">${quizScore}/${quizData.length}</div>
+      <h3>${percent>=80?'Excellent work! 🏆':percent>=60?'Good effort! ⭐':'Keep practicing! 🌱'}</h3>
+      <p>You scored ${percent}% on the Final Knowledge Challenge.</p>
+      <button class="btn" onclick="startQuiz()">Retake Quiz</button>
+      <button class="btn light" onclick="go('progress')">View My Progress</button>
+    </div>`;
+  finishActivity('quiz',quizScore,quizData.length);
+  if(percent>=60)celebrate();
+}
+
+// Initialize activities on page load
+renderIdentify();
+renderIPO();
+startMatching();
+startQuiz();
+updateProgress();
+</script>
+</body>
+</html>
